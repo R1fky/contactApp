@@ -19,6 +19,8 @@ if(!fs.existsSync(dataPath)) {
   fs.writeFileSync(dataPath, '[]', 'utf-8');
 }
 
+
+//contact memakai callback
 rl.question("siapa nama anda ?? ", (nama) => {
   rl.question("masukkan no hp: ", (noHP) => {
     const contact = { nama, noHP };
