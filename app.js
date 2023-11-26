@@ -1,11 +1,8 @@
 const fs = require("fs");
 
-const readline = require("readline");
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
-
+const readline = require('readline');
+const { stdin: input, stdout: output } = require('process');
+const rl = readline.createInterface({ input, output });
 
 //membuat dir/folder data jika belum ada 
 const dirPath = './data';
@@ -19,18 +16,21 @@ if(!fs.existsSync(dataPath)) {
   fs.writeFileSync(dataPath, '[]', 'utf-8');
 }
 
+//punya sendiri
+rl.question('Masukkan nama anda : ', (nama) => {
+    rl.question('Masukkan No HP anda : ', (noHp) => {
 
-//contact memakai callback
-rl.question("siapa nama anda ?? ", (nama) => {
-  rl.question("masukkan no hp: ", (noHP) => {
-    const contact = { nama, noHP };
-    const file = fs.readFileSync("data/contacts.json", "utf-8");
-    const contacts = JSON.parse(file);
+        const contact = { nama, noHp} ;
+        const fileBuffer = fs.readFileSync('data/contacts.json', 'utf-8');
+        const contacts = JSON.parse(fileBuffer);
 
-    contacts.push(contact); //
-    fs.writeFileSync("data/contacts.json", JSON.stringify(contacts));
+        contacts.push(contact);
 
-    console.log("Terima kasih sudah memasukkan data");
-    rl.close();
-  });
+        fs.writeFileSync("data/contacts.json", JSON.stringify(contacts));
+
+        console.log(contacts);
+        console.log('Terima kasi sudah memasukkan data');
+
+        rl.close();
+    });
 });
